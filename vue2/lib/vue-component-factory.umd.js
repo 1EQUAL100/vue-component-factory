@@ -74,7 +74,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/vue-component-factory/src/index.vue?vue&type=template&id=6d63890f&
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/vue-component-factory/src/index.vue?vue&type=template&id=79444444&
 var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
@@ -140,13 +140,15 @@ var staticRenderFns = [];
     fmtOn() {
       const result = {};
 
-      for (const key of Object.keys(this.on)) {
-        const funcValue = this.on[key];
+      if (Object.prototype.toString.call(this.on) === "[object Object]") {
+        for (const key of Object.keys(this.on)) {
+          const onFunc = this.on[key];
 
-        if (Object.prototype.toString.call(funcValue) === "[object Function]") {
-          result[key] = event => {
-            funcValue(this, event);
-          };
+          if (Object.prototype.toString.call(onFunc) === "[object Function]") {
+            result[key] = event => {
+              onFunc(this, event);
+            };
+          }
         }
       }
 
@@ -156,16 +158,32 @@ var staticRenderFns = [];
   },
   watch: {
     vmodel: {
+      deep: true,
+      immediate: true,
+
       handler(newValue) {
         // Parent v-model change.
-        this.vmodelCopy = newValue;
+        if (Object.prototype.toString.call(newValue) === "[object Object]") {
+          // Add "add" method, resolve error(Unexpected mutation of "vmodel" prop).
+          newValue.__update = value => {
+            newValue.objectIs[newValue.key] = value;
+          };
+
+          this.vmodelCopy = newValue.objectIs[newValue.key];
+        } else {
+          this.vmodelCopy = newValue;
+        }
       }
 
     },
     vmodelCopy: {
       handler(newValue) {
         // Parent v-model update.
-        this.$emit("change", newValue);
+        if (Object.prototype.toString.call(this.vmodel) === "[object Object]") {
+          this.vmodel.__update(newValue);
+        } else {
+          this.$emit("change", newValue);
+        }
       }
 
     },
