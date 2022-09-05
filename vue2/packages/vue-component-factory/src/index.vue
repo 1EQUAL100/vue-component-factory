@@ -62,16 +62,30 @@ export default {
 
   watch: {
     vmodel: {
+      deep: true,
+      immediate: true,
       handler(newValue) {
         // Parent v-model change.
-        this.vmodelCopy = newValue;
+        if (Object.prototype.toString.call(newValue) === "[object Object]") {
+          // Add "add" method, resolve error(Unexpected mutation of "vmodel" prop).
+          newValue.__update = (value) => {
+            newValue.objectIs[newValue.key] = value;
+          };
+          this.vmodelCopy = newValue.objectIs[newValue.key];
+        } else {
+          this.vmodelCopy = newValue;
+        }
       },
     },
 
     vmodelCopy: {
       handler(newValue) {
         // Parent v-model update.
-        this.$emit("change", newValue);
+        if (Object.prototype.toString.call(this.vmodel) === "[object Object]") {
+          this.vmodel.__update(newValue);
+        } else {
+          this.$emit("change", newValue);
+        }
       },
     },
 
