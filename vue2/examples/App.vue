@@ -27,7 +27,6 @@ export default {
               is: "option",
               value: "A",
             },
-            on: {},
           },
           {
             bind: {

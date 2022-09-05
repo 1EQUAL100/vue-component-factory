@@ -45,14 +45,17 @@ export default {
     // Add component "this" and event target object.
     fmtOn() {
       const result = {};
-      for (const key of Object.keys(this.on)) {
-        const funcValue = this.on[key];
-        if (Object.prototype.toString.call(funcValue) === "[object Function]") {
-          result[key] = (event) => {
-            funcValue(this, event);
-          };
+      if (Object.prototype.toString.call(this.on) === "[object Object]") {
+        for (const key of Object.keys(this.on)) {
+          const onFunc = this.on[key];
+          if (Object.prototype.toString.call(onFunc) === "[object Function]") {
+            result[key] = (event) => {
+              onFunc(this, event);
+            };
+          }
         }
       }
+
       return result;
     },
   },
