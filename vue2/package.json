@@ -1,6 +1,6 @@
 {
   "name": "@vue-component-factory/vue2",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Generate component using JSON.",
   "main": "lib/vue-component-factory.umd.js",
   "private": false,

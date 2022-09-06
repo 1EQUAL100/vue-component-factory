@@ -74,12 +74,18 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/vue-component-factory/src/index.vue?vue&type=template&id=79444444&
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/vue-component-factory/src/index.vue?vue&type=template&id=55aa642e&
 var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
   return _vm.checked ? _c(_vm.bind.is, _vm._g(_vm._b({
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.vshow,
+      expression: "vshow"
+    }],
     tag: "component",
     model: {
       value: _vm.vmodelCopy,
@@ -125,6 +131,13 @@ var staticRenderFns = [];
     children: {
       type: Array,
       default: () => []
+    },
+    created: null,
+    mounted: null,
+    beforeDestroy: null,
+    vshow: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -202,7 +215,26 @@ var staticRenderFns = [];
       }
 
     }
+  },
+
+  created() {
+    if (Object.prototype.toString.call(this.created) === "[object Function]") {
+      this.created(this);
+    }
+  },
+
+  mounted() {
+    if (Object.prototype.toString.call(this.mounted) === "[object Function]") {
+      this.mounted(this);
+    }
+  },
+
+  beforeDestroy() {
+    if (Object.prototype.toString.call(this.beforeDestroy) === "[object Function]") {
+      this.beforeDestroy(this);
+    }
   }
+
 });
 ;// CONCATENATED MODULE: ./packages/vue-component-factory/src/index.vue?vue&type=script&lang=js&
  /* harmony default export */ var vue_component_factory_srcvue_type_script_lang_js_ = (srcvue_type_script_lang_js_); 
