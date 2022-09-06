@@ -31,6 +31,9 @@ export default {
     bind: { type: Object, default: () => {}, required: true },
     on: { type: Object, default: () => {} },
     children: { type: Array, default: () => [] },
+    created: null,
+    mounted: null,
+    beforeDestroy: null,
   },
 
   data() {
@@ -104,6 +107,26 @@ export default {
         this.checked = isObject;
       },
     },
+  },
+
+  created() {
+    if (Object.prototype.toString.call(this.created) === "[object Function]") {
+      this.created(this);
+    }
+  },
+
+  mounted() {
+    if (Object.prototype.toString.call(this.mounted) === "[object Function]") {
+      this.mounted(this);
+    }
+  },
+
+  beforeDestroy() {
+    if (
+      Object.prototype.toString.call(this.beforeDestroy) === "[object Function]"
+    ) {
+      this.beforeDestroy(this);
+    }
   },
 };
 </script>

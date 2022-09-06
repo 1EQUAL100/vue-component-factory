@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-component-factory v-bind="config"></vue-component-factory>
+    <vue-component-factory v-bind="config" v-if="vif"></vue-component-factory>
   </div>
 </template>
 
@@ -8,17 +8,37 @@
 export default {
   name: "App",
 
+  mounted() {
+    setTimeout(() => {
+      this.vif = false;
+    }, 5000);
+  },
+
   data() {
     return {
+      vif: true,
       config: {
         vmodel: "B",
         bind: {
           is: "select",
           label: "hello",
+          ref: "testref",
+        },
+        created: (self) => {
+          console.log("created self", self);
+          console.log("created ref", self.$refs["testref"]);
+        },
+        mounted: (self) => {
+          console.log("mounted self", self);
+          console.log("mounted ref", self.$refs["testref"]);
+        },
+        beforeDestroy: (self) => {
+          console.log("beforeDestroy self", self);
+          console.log("beforeDestroy ref", self.$refs["testref"]);
         },
         on: {
-          change: () => {
-            console.log(this.config);
+          change: (self) => {
+            console.log("change self", self);
           },
         },
         children: [
