@@ -5,6 +5,7 @@
     :is="bind.is"
     v-bind="bind"
     v-on="fmtOn"
+    v-show="vshow"
   >
     <template v-if="children">
       <vue-component-factory
@@ -34,6 +35,7 @@ export default {
     created: null,
     mounted: null,
     beforeDestroy: null,
+    vshow: { type: Boolean, default: true },
   },
 
   data() {

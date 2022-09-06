@@ -9,9 +9,9 @@ export default {
   name: "App",
 
   mounted() {
-    setTimeout(() => {
-      this.vif = false;
-    }, 5000);
+    // setTimeout(() => {
+    //   this.vif = false;
+    // }, 5000);
   },
 
   data() {
@@ -19,6 +19,7 @@ export default {
       vif: true,
       config: {
         vmodel: "B",
+        vshow: false,
         bind: {
           is: "select",
           label: "hello",
